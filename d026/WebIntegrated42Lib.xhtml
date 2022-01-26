@@ -88,6 +88,7 @@ name()                             class method S name()
 repo()                             class method S repo()
 version()                          class method S version()
 //mut methods:
+deployContent(that)                mut method mut DocsBuilder deployContent(S that)=(..)
 deployDocs(that)                   mut method mut DocsBuilder deployDocs(S that)[Process.Fail]=(..)
 deployModule(that, nestedName)     mut method Void deployModule(Trait that, Name nestedName)[GW.Fail, Cache.Call.Fail, Trait.InvalidName, Trait.InvalidMap, Trait.ClassClash, Trait.MethodClash]=(..)
 deployTowel(that)                  mut method Void deployTowel(Trait that)[GW.Fail, Cache.Call.Fail]=(..)
