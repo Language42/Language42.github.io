@@ -55,28 +55,20 @@
 <div class="rotate90">Index of Content</div>
 </div><div class="inFloat">
 <ol>
- <li><a href="#Process"> The process library </a></li>
+ <li><a href="#GitWriter"> A library to write on GitHub </a></li>
 
 </ol>
 </div></div><div class="finishFloat"></div></div>
 
-</p><p id="Process">
-</p><div style="break-after:page"></div><h1> The process library </h1> <p>
+</p><p id="GitWriter">
+</p><div style="break-after:page"></div><h1> A library to write on GitHub </h1> <p>
 </p><h2> Importing process and example usage </h2> <p>
 
 The process library allows to run processes from AdamsTowel.
 <it style="font-style: bold; color:green;">&#171;</it><span class="code"><![CDATA[Process.Real.#$of(..)]]></span><it style="font-style: bold; color:green;">&#187;</it> creates a capability object permanently connected with a specific
 command and option, but the standard input of the program can be specified by the capability user.
 <pre class="l42Big"><![CDATA[
-Process = Load:{reuse[L42.is/Process]}
-..
-  (
-  Process pLinux=Process.Real.#$of(\[S"ls";S"-l"])
-  res=pLinux.start(input=S"")
-  Debug(res.out())
-  Debug(res.err())
-  catch Process.Fail f Debug(S"oh no!")
-  )
+GW = Load:{reuse[L42.is/GitWriter]}
 ]]></pre>
 
 </p><h2> Overview under AdamsTowel </h2> <p>
