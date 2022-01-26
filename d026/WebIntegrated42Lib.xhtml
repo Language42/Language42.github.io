@@ -93,6 +93,7 @@ deployModule(that, nestedName)     mut method Void deployModule(Trait that, Name
 deployTowel(that)                  mut method Void deployTowel(Trait that)[GW.Fail, Cache.Call.Fail]=(..)
 fs()                               mut method mut Fs fs()=(..)
 gw()                               mut method mut GW gw()=(..)
+supportFile(localName, destination)     mut method Void supportFile(Url localName, S destination)[GW.Fail, Fs.Fail]=(..)
 Deploy={
   with(writer)                       class method Library with(class Any writer)[Class.IncoherentClass, Trait.InvalidName, Trait.InvalidMap, Trait.ClassClash, Trait.MethodClash]=(..)
   DeployTrait={
