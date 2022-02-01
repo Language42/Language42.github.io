@@ -124,4 +124,4 @@ var defaultStyle = {
   bracketBorder:"rgb(192, 192, 192)", foldBackground:"rgb(60, 76, 114)",
   cursorColor:"rgb(0,0,0)"
   };
-var style = (styling!=undefined) ? styling : defaultStyle;
+var style = (typeof styling!== 'undefined') ? styling : defaultStyle;
