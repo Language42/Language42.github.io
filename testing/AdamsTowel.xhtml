@@ -7,9 +7,13 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
     <link rel="stylesheet" type="text/css" href="/css/style.css" media="all"/>
+    <link rel="apple-touch-icon" sizes="180x180" href="/css/fav/apple-touch-icon.png"/>
+    <link rel="icon" type="image/png" sizes="32x32" href="/css/fav/favicon-32x32.png"/>
+    <link rel="icon" type="image/png" sizes="16x16" href="/css/fav/favicon-16x16.png"/>
+    <meta name="msapplication-TileColor" content="#da532c"/>
+    <meta name="theme-color" content="#ffffff"/>
     <script src="/js/ace.js"></script>
     <script src="/js/utils.js"></script>
-    <link rel="shortcut icon" href="/css/favicon.ico"/>
     <title>42 - Metaprogramming as default</title>
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script src="https://www.googletagmanager.com/gtag/js?id=G-M0E4M0XH2Z"></script>
@@ -87,15 +91,21 @@ Main = Debug(S"Hello world")
   true()                             class method This true()=(..)
   //imm methods:
   #bang0()                           method This #bang0()=(..)
-  #bangequal0(that)                  method This #bangequal0(This that)=(..)
+  #bangequal0(that)                  @{
+    This operation returns false iff this = that, in the common mathematical interpretation.
+    }method This #bangequal0(This that)=(..)
   #checkTrue()                       method Void #checkTrue()[Void]native{..}=(..)
-  #equalequal0(that)                 method This #equalequal0(This that)=(..)
+  #equalequal0(that)                 @{
+    This operation returns true iff this = that, in the common mathematical interpretation.
+    }method This #equalequal0(This that)=(..)
   #if()                              method This #if()=(..)
   and(that)                          method This and(This that)native{..}=(..)
   not()                              method This not()native{..}=(..)
   or(that)                           method This or(This that)native{..}=(..)
   //read methods:
-  readEquality(that)                 read method This readEquality(read This that)native{..}=(..)
+  readEquality(that)                 @{
+    This operation returns true iff this = that, in the common mathematical interpretation.
+    }read method This readEquality(read This that)native{..}=(..)
   toS()                              read method S toS()native{..}=(..)
   List={
     [HasToS]
@@ -868,52 +878,140 @@ Main = Debug(S"Hello world")
 @Public Double={
   [HasToS, Math.Numeric]
   //class methods:
-  #apply(num)                        class method This #apply(Num num)native{..}=(..)
-  #apply(string)                     class method This #apply(S string)=(..)
+  #apply(num)                        @{
+    Conversion method.
+    Rounds the parameter to the nearest 64bit Floating Point.
+    }class method This #apply(Num num)native{..}=(..)
+  #apply(string)                     @{
+    Conversion method.
+    Parse the string and produce the corresponding number.
+    throws error @S.ParseError if the string is not a valid Double.
+    }class method This #apply(S string)=(..)
   #apply(that)                       class method This #apply(Math.Numeric that)=(..)
   #from(stringLiteral)               @Cache.Call class method This #from(S.StringBuilder stringLiteral)=(..)
-  zero()                             class method This zero()=(..)
+  zero()                             @{
+    Meta-programming friendly method.
+    The constant zero.
+    }class method This zero()=(..)
   //imm methods:
-  #bangequal0(that)                  method Bool #bangequal0(This that)=(..)
-  #divide0(that)                     method This #divide0(This that)native{..}=(..)
-  #equalequal0(that)                 method Bool #equalequal0(This that)=(..)
-  #gt0(that)                         method Bool #gt0(This that)=(..)
-  #gtequal0(that)                    method Bool #gtequal0(This that)=(..)
-  #lt0(that)                         method Bool #lt0(This that)native{..}=(..)
-  #ltequal0(that)                    method Bool #ltequal0(This that)native{..}=(..)
-  #minus0(that)                      method This #minus0(This that)native{..}=(..)
-  #plus0(that)                       method This #plus0(This that)native{..}=(..)
-  #times0(that)                      method This #times0(This that)native{..}=(..)
+  #bangequal0(that)                  @{
+    Optimized Floating Point Arithmetic Relation.
+    This operation returns false iff this = that, in the common mathematical interpretation.
+    }method Bool #bangequal0(This that)=(..)
+  #divide0(that)                     @{
+    Optimized Floating Point Arithmetic Operation.
+    64bit Floating Point division, beware of numeric approximations.
+    }method This #divide0(This that)native{..}=(..)
+  #equalequal0(that)                 @{
+    Optimized Floating Point Arithmetic Relation.
+    This operation returns true iff this = that, in the common mathematical interpretation.
+    }method Bool #equalequal0(This that)=(..)
+  #gt0(that)                         @{
+    Optimized Floating Point Arithmetic Relation.
+    This operation returns true iff this > that, in the common mathematical interpretation.
+    }method Bool #gt0(This that)=(..)
+  #gtequal0(that)                    @{
+    Optimized Floating Point Arithmetic Relation.
+    This operation returns true iff this >= that, in the common mathematical interpretation.
+    }method Bool #gtequal0(This that)=(..)
+  #lt0(that)                         @{
+    Optimized Floating Point Arithmetic Relation.
+    This operation returns true iff this < that, in the common mathematical interpretation.
+    }method Bool #lt0(This that)native{..}=(..)
+  #ltequal0(that)                    @{
+    Optimized Floating Point Arithmetic Relation.
+    This operation returns true iff this <= that, in the common mathematical interpretation.
+    }method Bool #ltequal0(This that)native{..}=(..)
+  #minus0(that)                      @{
+    Optimized Floating Point Arithmetic Operation.
+    64bit Floating Point subtraction, beware of numeric approximations.
+    }method This #minus0(This that)native{..}=(..)
+  #plus0(that)                       @{
+    Optimized Floating Point Arithmetic Operation.
+    64bit Floating Point addition, beware of numeric approximations.
+    }method This #plus0(This that)native{..}=(..)
+  #times0(that)                      @{
+    Optimized Floating Point Arithmetic Operation.
+    64bit Floating Point multiplication, beware of numeric approximations.
+    }method This #times0(This that)native{..}=(..)
   acc()                              method mut Acc acc()=(..)
-  atan2(that)                        method This atan2(This that)native{..}=(..)
-  ceil()                             method I ceil()native{..}=(..)
-  ceilLong()                         method Math.Long ceilLong()native{..}=(..)
+  atan2(that)                        @{
+    Optimized Trigonometric Arithmetic Operation.
+    Turns the receiver into the 2 arg arc-tangent value of it as a radian angle
+    }method This atan2(This that)native{..}=(..)
+  ceil()                             @{
+    Meta-programming friendly method.
+    Returns the nearest int32 greater than the parameter
+    }method I ceil()native{..}=(..)
+  ceilLong()                         @{
+    Meta-programming friendly method.
+    Returns the nearest int64 greater than the parameter
+    }method Math.Long ceilLong()native{..}=(..)
   clamp(that, max)                   method This clamp(This that, This max)=(..)
-  cos()                              method This cos()native{..}=(..)
-  floor()                            method I floor()native{..}=(..)
-  floorLong()                        method Math.Long floorLong()native{..}=(..)
+  cos()                              @{
+    Optimized Trigonometric Arithmetic Operation.
+    Turns the receiver into the cosine value of it as a radian angle
+    }method This cos()native{..}=(..)
+  floor()                            @{
+    Meta-programming friendly method.
+    Returns the nearest int32 less than the parameter
+    }method I floor()native{..}=(..)
+  floorLong()                        @{
+    Meta-programming friendly method.
+    Returns the nearest int64 less than the parameter
+    }method Math.Long floorLong()native{..}=(..)
   isInRange(that, to)                method Bool isInRange(This that, This to)=(..)
   max(that)                          method This max(This that)=(..)
   min(that)                          method This min(This that)=(..)
-  pow(exp)                           method This pow(This exp)native{..}=(..)
+  pow(exp)                           @{
+    Optimized Floating Point Arithmetic Operation.
+    64bit Floating Point power operation, raises the receiver by exp
+    }method This pow(This exp)native{..}=(..)
   pred()                             @{
     Meta-programming friendly method.
     The predecessor operation. Simply subtracts 1
     }method This pred()native{..}=(..)
-  round()                            method I round()native{..}=(..)
-  roundLong()                        method Math.Long roundLong()native{..}=(..)
-  sin()                              method This sin()native{..}=(..)
+  round()                            @{
+    Meta-programming friendly method.
+    Returns the nearest int32
+    }method I round()native{..}=(..)
+  roundLong()                        @{
+    Meta-programming friendly method.
+    Returns the nearest int64
+    }method Math.Long roundLong()native{..}=(..)
+  sin()                              @{
+    Optimized Trigonometric Arithmetic Operation.
+    Turns the receiver into the sine value of it as a radian angle
+    }method This sin()native{..}=(..)
   succ()                             @{
     Meta-programming friendly method.
     The successor operation. Simply adds 1
     }method This succ()native{..}=(..)
-  tan()                              method This tan()native{..}=(..)
-  toDouble()                         method This toDouble()=(..)
-  toI()                              method I toI()native{..}=(..)
-  toLong()                           method Math.Long toLong()native{..}=(..)
-  toNum()                            method Num toNum()=(..)
+  tan()                              @{
+    Optimized Trigonometric Arithmetic Operation.
+    Turns the receiver into the tangent value of it as a radian angle
+    }method This tan()native{..}=(..)
+  toDouble()                         @{
+    Meta-programming friendly method.
+    For this class it just returns the receiver.
+    }method This toDouble()=(..)
+  toI()                              @{
+    Conversion method.
+    Turns the receiver into its int32 representation.
+    }method I toI()native{..}=(..)
+  toLong()                           @{
+    Conversion method.
+    Turns the receiver into its int64 representation.
+    }method Math.Long toLong()native{..}=(..)
+  toNum()                            @{
+    Conversion method.
+    Turns the receiver into its Num representation.
+    }method Num toNum()=(..)
   //read methods:
-  readEquality(that)                 read method Bool readEquality(read This that)native{..}=(..)
+  readEquality(that)                 @{
+    Optimized Floating Point Arithmetic Relation.
+    This operation returns true iff this = that, in the common mathematical interpretation.
+    }read method Bool readEquality(read This that)native{..}=(..)
   toS()                              read method S toS()native{..}=(..)
   Acc={
     //class methods:
@@ -1133,7 +1231,7 @@ Main = Debug(S"Hello world")
     }class method This #apply(Num num)native{..}=(..)
   #apply(string)                     @{
     Conversion method.
-    Parse the string a produce the corresponding number.
+    Parse the string and produce the corresponding number.
     throws error @S.ParseError if the string is not a valid int32.
     }class method This #apply(S string)=(..)
   #apply(that)                       class method This #apply(Math.Numeric that)=(..)
@@ -1211,7 +1309,7 @@ Main = Debug(S"Hello world")
     }method This round()=(..)
   signum()                           @{
     Optimized Signed Modular Arithmetic Operation.
-    This operation returns -1, 0 or 1 if the receiver is negative, zero or positive, respectivelly.
+    This operation returns -1, 0 or 1 if the receiver is negative, zero or positive, respectively.
     }method This signum()native{..}=(..)
   succ()                             @{
     Meta-programming friendly method.
@@ -2367,42 +2465,121 @@ Main = Debug(S"Hello world")
   Long={
     [HasToS, Numeric]
     //class methods:
-    #apply(num)                        class method This #apply(Num num)native{..}=(..)
-    #apply(string)                     class method This #apply(S string)=(..)
+    #apply(num)                        @{
+      Conversion method.
+      Rounds the parameter (floor) to the nearest int64.
+      }class method This #apply(Num num)native{..}=(..)
+    #apply(string)                     @{
+      Conversion method.
+      Parse the string and produce the corresponding number.
+      throws error @S.ParseError if the string is not a valid int64.
+      }class method This #apply(S string)=(..)
     #apply(that)                       class method This #apply(Numeric that)=(..)
     #from(stringLiteral)               @Cache.Call class method This #from(S.StringBuilder stringLiteral)=(..)
-    zero()                             class method This zero()=(..)
+    zero()                             @{
+      Meta-programming friendly method.
+      The constant zero.
+      }class method This zero()=(..)
     //imm methods:
-    #bangequal0(that)                  method Bool #bangequal0(This that)=(..)
-    #divide0(that)                     method This #divide0(This that)native{..}=(..)
-    #equalequal0(that)                 method Bool #equalequal0(This that)=(..)
-    #gt0(that)                         method Bool #gt0(This that)=(..)
-    #gtequal0(that)                    method Bool #gtequal0(This that)=(..)
-    #lt0(that)                         method Bool #lt0(This that)native{..}=(..)
-    #ltequal0(that)                    method Bool #ltequal0(This that)native{..}=(..)
-    #minus0(that)                      method This #minus0(This that)native{..}=(..)
-    #plus0(that)                       method This #plus0(This that)native{..}=(..)
-    #times0(that)                      method This #times0(This that)native{..}=(..)
+    #bangequal0(that)                  @{
+      Optimized Signed Modular Arithmetic Relation.
+      This operation returns false iff this = that, in the common mathematical interpretation.
+      }method Bool #bangequal0(This that)=(..)
+    #divide0(that)                     @{
+      Optimized Signed Modular Arithmetic Operation.
+      Signed int64 integer division, beware of lost precision because of reminders.
+      }method This #divide0(This that)native{..}=(..)
+    #equalequal0(that)                 @{
+      Optimized Signed Modular Arithmetic Relation.
+      This operation returns true iff this = that, in the common mathematical interpretation.
+      }method Bool #equalequal0(This that)=(..)
+    #gt0(that)                         @{
+      Optimized Signed Modular Arithmetic Relation.
+      This operation returns true iff this > that, in the common mathematical interpretation.
+      }method Bool #gt0(This that)=(..)
+    #gtequal0(that)                    @{
+      Optimized Signed Modular Arithmetic Relation.
+      This operation returns true iff this >= that, in the common mathematical interpretation.
+      }method Bool #gtequal0(This that)=(..)
+    #lt0(that)                         @{
+      Optimized Signed Modular Arithmetic Relation.
+      This operation returns true iff this < that, in the common mathematical interpretation.
+      }method Bool #lt0(This that)native{..}=(..)
+    #ltequal0(that)                    @{
+      Optimized Signed Modular Arithmetic Relation.
+      This operation returns true iff this <= that, in the common mathematical interpretation.
+      }method Bool #ltequal0(This that)native{..}=(..)
+    #minus0(that)                      @{
+      Optimized Signed Modular Arithmetic Operation.
+      Signed int64 subtraction, beware of overflows/underflows.
+      }method This #minus0(This that)native{..}=(..)
+    #plus0(that)                       @{
+      Optimized Signed Modular Arithmetic Operation.
+      Signed int64 addition, beware of overflows/underflows.
+      }method This #plus0(This that)native{..}=(..)
+    #times0(that)                      @{
+      Optimized Signed Modular Arithmetic Operation.
+      Signed int64 multiplication, beware of overflows/underflows.
+      }method This #times0(This that)native{..}=(..)
     acc()                              method mut Acc acc()=(..)
-    ceil()                             method I ceil()native{..}=(..)
+    ceil()                             @{
+      Meta-programming friendly method.
+      Returns the nearest int32 greater than the parameter
+      }method I ceil()native{..}=(..)
     clamp(that, max)                   method This clamp(This that, This max)=(..)
     clamp(that, to)                    method This clamp(This that, This to)=(..)
-    floor()                            method I floor()native{..}=(..)
+    floor()                            @{
+      Meta-programming friendly method.
+      Returns the nearest int32 less than the parameter
+      }method I floor()native{..}=(..)
     isInRange(that, to)                method Bool isInRange(This that, This to)=(..)
     max(that)                          method This max(This that)=(..)
     min(that)                          method This min(This that)=(..)
-    mod(that)                          method This mod(This that)native{..}=(..)
-    pred()                             method This pred()native{..}=(..)
-    round()                            method I round()native{..}=(..)
-    signum()                           method I signum()native{..}=(..)
-    succ()                             method This succ()native{..}=(..)
-    toDouble()                         method Double toDouble()native{..}=(..)
-    toI()                              method I toI()native{..}=(..)
-    toLong()                           method This toLong()=(..)
-    toNum()                            method Num toNum()=(..)
-    toNum(denominator)                 method Num toNum(This denominator)=(..)
+    mod(that)                          @{
+      Optimized Signed Modular Arithmetic Operation.
+      Signed int64 integer reminder. a - ((a/b)*b) = a.mod(b)
+      }method This mod(This that)native{..}=(..)
+    pred()                             @{
+      Meta-programming friendly method.
+      The predecessor operation.
+      }method This pred()native{..}=(..)
+    round()                            @{
+      Meta-programming friendly method.
+      Returns the nearest int32
+      }method I round()native{..}=(..)
+    signum()                           @{
+      Optimized Signed Modular Arithmetic Operation.
+      This operation returns -1, 0 or 1 if the receiver is negative, zero or positive, respectively.
+      }method I signum()native{..}=(..)
+    succ()                             @{
+      Meta-programming friendly method.
+      The successor operation.
+      }method This succ()native{..}=(..)
+    toDouble()                         @{
+      Conversion method.
+      Turns the receiver into its nearest double representation.
+      }method Double toDouble()native{..}=(..)
+    toI()                              @{
+      Conversion method.
+      Turns the receiver into its int32 representation.
+      }method I toI()native{..}=(..)
+    toLong()                           @{
+      Meta-programming friendly method.
+      For this class it just returns the receiver.
+      }method This toLong()=(..)
+    toNum()                            @{
+      Conversion method.
+      Turns the receiver into its arbitrary precision rational representation.
+      }method Num toNum()=(..)
+    toNum(denominator)                 @{
+      Conversion method.
+      Result = receiver/denominator.
+      }method Num toNum(This denominator)=(..)
     //read methods:
-    readEquality(that)                 read method Bool readEquality(read This that)native{..}=(..)
+    readEquality(that)                 @{
+      Optimized Signed Modular Arithmetic Relation.
+      This operation returns true iff this = that, in the common mathematical interpretation.
+      }read method Bool readEquality(read This that)native{..}=(..)
     toS()                              read method S toS()native{..}=(..)
     Acc={
       //class methods:
@@ -2755,21 +2932,58 @@ Main = Debug(S"Hello world")
 @Public Num={
   [HasToS, Math.Numeric]
   //class methods:
-  #apply(string)                     class method This #apply(S string)=(..)
+  #apply(string)                     @{
+    Conversion method.
+    Parse the string and produce the corresponding number.
+    throws error @S.ParseError if the string is not a valid Num.
+    }class method This #apply(S string)=(..)
   #apply(that)                       class method This #apply(Math.Numeric that)=(..)
   #from(stringLiteral)               @Cache.Call class method This #from(S.StringBuilder stringLiteral)=(..)
-  zero()                             class method This zero()=(..)
+  zero()                             @{
+    Meta-programming friendly method.
+    The constant zero.
+    }class method This zero()=(..)
   //imm methods:
-  #bangequal0(that)                  method Bool #bangequal0(This that)=(..)
-  #divide0(that)                     method This #divide0(This that)native{..}=(..)
-  #equalequal0(that)                 method Bool #equalequal0(This that)=(..)
-  #gt0(that)                         method Bool #gt0(This that)=(..)
-  #gtequal0(that)                    method Bool #gtequal0(This that)=(..)
-  #lt0(that)                         method Bool #lt0(This that)native{..}=(..)
-  #ltequal0(that)                    method Bool #ltequal0(This that)native{..}=(..)
-  #minus0(that)                      method This #minus0(This that)native{..}=(..)
-  #plus0(that)                       method This #plus0(This that)native{..}=(..)
-  #times0(that)                      method This #times0(This that)native{..}=(..)
+  #bangequal0(that)                  @{
+    Optimized Modular Arithmetic Relation.
+    This operation returns false iff this = that, in the common mathematical interpretation.
+    }method Bool #bangequal0(This that)=(..)
+  #divide0(that)                     @{
+    Optimized Signed Modular Arithmetic Operation.
+    Num division, beware of overflows/underflows.
+    }method This #divide0(This that)native{..}=(..)
+  #equalequal0(that)                 @{
+    Optimized Modular Arithmetic Relation.
+    This operation returns true iff this = that, in the common mathematical interpretation.
+    }method Bool #equalequal0(This that)=(..)
+  #gt0(that)                         @{
+    Optimized Modular Arithmetic Relation.
+    This operation returns true iff this > that, in the common mathematical interpretation.
+    }method Bool #gt0(This that)=(..)
+  #gtequal0(that)                    @{
+    Optimized Modular Arithmetic Relation.
+    This operation returns true iff this >= that, in the common mathematical interpretation.
+    }method Bool #gtequal0(This that)=(..)
+  #lt0(that)                         @{
+    Optimized Modular Arithmetic Relation.
+    This operation returns true iff this < that, in the common mathematical interpretation.
+    }method Bool #lt0(This that)native{..}=(..)
+  #ltequal0(that)                    @{
+    Optimized Modular Arithmetic Relation.
+    This operation returns true iff this <= that, in the common mathematical interpretation.
+    }method Bool #ltequal0(This that)native{..}=(..)
+  #minus0(that)                      @{
+    Optimized Signed Modular Arithmetic Operation.
+    Num subtraction, beware of overflows/underflows.
+    }method This #minus0(This that)native{..}=(..)
+  #plus0(that)                       @{
+    Optimized Signed Modular Arithmetic Operation.
+    Num addition, beware of overflows/underflows.
+    }method This #plus0(This that)native{..}=(..)
+  #times0(that)                      @{
+    Optimized Signed Modular Arithmetic Operation.
+    Num multiplication, beware of overflows/underflows.
+    }method This #times0(This that)native{..}=(..)
   acc()                              method mut Acc acc()=(..)
   ceil()                             method I ceil()=(..)
   clamp(that, max)                   method This clamp(This that, This max)=(..)
@@ -2786,12 +3000,18 @@ Main = Debug(S"Hello world")
     Meta-programming friendly method.
     The successor operation. Simply adds 1
     }method This succ()native{..}=(..)
-  toDouble()                         method Double toDouble()=(..)
+  toDouble()                         @{
+    Conversion method.
+    Turns the receiver into its nearest double representation.
+    }method Double toDouble()=(..)
   toI()                              method I toI()=(..)
   toLong()                           method Math.Long toLong()=(..)
   toNum()                            method This toNum()=(..)
   //read methods:
-  readEquality(that)                 read method Bool readEquality(read This that)native{..}=(..)
+  readEquality(that)                 @{
+    Optimized Modular Arithmetic Relation.
+    This operation returns true iff this = that, in the common mathematical interpretation.
+    }read method Bool readEquality(read This that)native{..}=(..)
   toS()                              read method S toS()native{..}=(..)
   Acc={
     //class methods:
